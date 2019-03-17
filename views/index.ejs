@@ -1,0 +1,56 @@
+<html>
+<link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/6/62/Red-shouldered_Hawk_%28Buteo_lineatus%29_-_Blue_Cypress_Lake%2C_Florida.jpg"/>
+<script language="javascript" src="./node_modules/bootstrap/.../bootstrap.min.js"></script>
+<link rel="stylesheet" href="./node_modules/bootstrap/.../bootstrap.min.css"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <title>Skyhawk</title>
+</head>
+<div class="container">
+  <p>
+  <center> Results
+  <%if (response.length == 0) { %>
+    <p> NO RESULTS </p>
+  <% } else {%>
+
+  <tbody>
+      <% response.forEach(function(data){ %>
+        <tr>
+          <!-- <%= data.offerItems %> -->
+          <% data.offerItems.forEach(function(offerItem){ %>
+              <!-- offerItem <%= offerItem %> -->
+              <% offerItem.services.forEach(function(service){ %>
+                <!-- service <%= service %> -->
+                <p>
+                <% service.segments.forEach(function(segment){ %>
+                  <p>
+                    <div class="card w-50">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          Airline: <%= segment.flightSegment.carrierCode %>
+                          <%= segment.flightSegment.number %>
+                        </h5>
+                        <p class="card-text">
+                          Travel Class: <%= segment.pricingDetailPerAdult.travelClass %>
+                          Seats Available: <%= segment.pricingDetailPerAdult.availability %>
+                        </p>
+                        <!-- <iframe src="https://flightaware.com/live/flight/ASA498" style="border: 0px none; margin-left: -185px; height: 859px; margin-top: -533px; width: 926px;></iframe> -->
+                        <a href="dashboard/<%= segment.flightSegment.carrierCode %>/<%= segment.flightSegment.number %>" class="btn btn-primary">Rebook</a>
+                      </div>
+                    </div>
+
+                  <p>
+                  <p>
+                <% }); %>
+              <% }); %>
+          <% }); %>
+        </tr>
+      <% }); %>
+
+  </tbody>
+  <% } %>
+  </center>
+  <br>
+
+</div>
+</hmtl>
